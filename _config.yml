@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Blog
+title: TheMorrises
 subtitle:
 description:
 author: Chris Morris
@@ -12,8 +12,8 @@ timezone: America/New_York
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.themorrises.xyz
-root: /
+url: http://chris.themorrises.xyz/blog
+root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -63,27 +63,13 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-laughing
-favicon: /favicon.ico
-keywords: Hexo, Gruntjs, Nodejs, Reactjs, Vuejs
-page_background: /default_images/page_background.jpg
-page_menu_button: dark
-title_plancehold: 'TheMorrises.xyz'
-navication:
-  - name: blog.themorrises.xyz
-    link: http://blog.themorrises.xyz
-# author:
-#   head: /default_images/author_head.gif
-#   signature: Only when you plant the flowers can you really smell their fragrance.
-content_width: 600
-social:
-  - name: GitHub
-    icon: github
-    link: http://github.com/morriswchris
-duoshuo:
-  enable: false
+theme: polarbear
+
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:morriswchris/blog.git
+  branch: gh-pages
+  message: "Update blog"
