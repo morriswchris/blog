@@ -1,0 +1,35 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "private": true,
+  "hexo": {
+    "version": "3.2.2"
+  },
+  "scripts": {
+    "deploy": "npm run hexo deploy",
+    "hexo": "node_modules/hexo-cli/bin/hexo",
+    "new:draft": "npm run hexo new layout",
+    "new:layout": "npm run hexo new layout",
+    "new:post": "npm run hexo new post",
+    "publish:draft": "npm run hexo publish layout",
+    "publish:layout": "npm run hexo publish layout",
+    "publish:post": "npm run hexo publish post",
+    "start": "npm run hexo server"
+  },
+  "dependencies": {
+    "hexo": "^3.2.0",
+    "hexo-generator-archive": "^0.1.4",
+    "hexo-generator-category": "^0.1.3",
+    "hexo-generator-index": "^0.2.0",
+    "hexo-generator-tag": "^0.2.0",
+    "hexo-renderer-ejs": "^0.2.0",
+    "hexo-renderer-marked": "^0.2.10",
+    "hexo-renderer-scss": "^1.0.2",
+    "hexo-renderer-stylus": "^0.3.1",
+    "hexo-server": "^0.2.0",
+    "install": "^0.8.8"
+  },
+  "devDependencies": {
+    "hexo-cli": "^1.0.2"
+  }
+}
