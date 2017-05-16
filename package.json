@@ -8,7 +8,7 @@
   "scripts": {
     "deploy": "npm run hexo deploy -- -g",
     "hexo": "node_modules/hexo-cli/bin/hexo",
-    "new:draft": "npm run hexo new layout",
+    "new:draft": "npm run hexo new draft",
     "new:layout": "npm run hexo new layout",
     "new:post": "npm run hexo new post",
     "publish:draft": "npm run hexo publish layout",
