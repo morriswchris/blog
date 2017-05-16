@@ -7,8 +7,8 @@ branches:
     - master
 before_install:
   - npm install
-  - git config --global user.email "GH_EMAIL"
-  - git config --global user.name "GH_USER"
-  - sed -i'' "s~git@github.com:GH_REF.git~https://GH_TOKEN:x-oauth-basic@github.com/GH_REF.git~" _config.yml
+  - git config --global user.email "${GH_EMAIL}"
+  - git config --global user.name "${GH_USER}"
+  - sed -i'' "s~git@github.com:${GH_REF}.git~https://${GH_TOKEN}:x-oauth-basic@github.com/${GH_REF}.git~" _config.yml
 
 script: npm run deploy
