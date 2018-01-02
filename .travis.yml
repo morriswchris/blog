@@ -11,5 +11,6 @@ before_install:
   - git config --global user.name "${GH_USER}"
   - sed -i'' "s~git@github.com:${GH_REF}.git~https://${GH_TOKEN}:x-oauth-basic@github.com/${GH_REF}.git~" _config.yml
   - git clone https://github.com/morriswchris/hexo-theme-polarbear.git themes/polarbear
+  - npm run clean
 
 script: npm run deploy
