@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: TheMorrises
-subtitle:
+title: "Shower Thoughts: By Chris Morris"
+subtitle: Blog
 description:
 author: Chris Morris
 language: en
@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: polarbear
+theme: anatole
 
 
 # Deployment
@@ -73,3 +73,26 @@ deploy:
   repo: git@github.com:morriswchris/blog.git
   branch: gh-pages
   message: "Update blog"
+
+# Social Accounts
+twitter: 'morriswchris' 
+rss: 
+weibo: 
+instagram: 
+github: 'morriswchris' 
+facebook: 
+
+# Comment
+duoshuo: 
+disqus: 
+gentie: 
+# Valine comments https://valine.js.org
+valine:
+  enable: false # if you want use valine, please set enable: true
+  appid:  # your leancloud appid
+  appkey:  # your leancloud appkey
+  notify: false # true/false:mail notify !!!Test,Caution. https://github.com/xCss/Valine/wiki/Valine-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%82%AE%E4%BB%B6%E6%8F%90%E9%86%92%E8%AE%BE%E7%BD%AE
+  verify: false # true/false:verify code
+  avatar: mm # avatar style https://github.com/xCss/Valine/wiki/avatar-setting-for-valine
+  placeholder: Just go go # comment box placeholder
+
