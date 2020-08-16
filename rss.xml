@@ -1,1 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Awful, Slow and Expensive]]></title><description><![CDATA[Musing of modern software development]]></description><link>https://chris.themorrises.xyz/blog</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Aug 2020 16:23:44 GMT</lastBuildDate><item><title><![CDATA[Advanced Rails Filter Parameter Logging]]></title><description><![CDATA[Have you ever wondered why you might see the  while debugging your rails application? Maybe you expect to see  for that new  being sent to a…]]></description><link>https://chris.themorrises.xyz/blog/advanced-rails-filter-parameter-logging/</link><guid isPermaLink="false">https://chris.themorrises.xyz/blog/advanced-rails-filter-parameter-logging/</guid><pubDate>Sun, 08 Sep 2019 22:40:32 GMT</pubDate><content:encoded>&lt;p&gt;Have you ever wondered why you might see the &lt;code class=&quot;language-text&quot;&gt;[FILTERED]&lt;/code&gt; while debugging your rails application? Maybe you expect to see &lt;code class=&quot;language-text&quot;&gt;[FILTERED]&lt;/code&gt; for that new &lt;code class=&quot;language-text&quot;&gt;super_secret_param&lt;/code&gt; being sent to a newly created endpoint? Eitherway, this is the configuration option &lt;code class=&quot;language-text&quot;&gt;filter_parameter_logging&lt;/code&gt; at work. &lt;/p&gt;</content:encoded></item></channel></rss>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Awful, Slow and Expensive]]></title><description><![CDATA[Musing of modern software development]]></description><link>https://chris.themorrises.xyz/blog</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Aug 2020 17:09:05 GMT</lastBuildDate><item><title><![CDATA[Advanced Filter Parameter Logging in Rails]]></title><description><![CDATA[Rails in a powerful framework, providing great magical features with little to no configuration. For instance, if you were to turn your…]]></description><link>https://chris.themorrises.xyz/blog/advanced-rails-filter-parameter-logging/</link><guid isPermaLink="false">https://chris.themorrises.xyz/blog/advanced-rails-filter-parameter-logging/</guid><pubDate>Sun, 16 Aug 2020 12:40:32 GMT</pubDate><content:encoded>&lt;p&gt;Rails in a powerful framework, providing great &lt;em&gt;magical&lt;/em&gt; features with little to no configuration. For instance, if you were to turn your logging level to &lt;code class=&quot;language-text&quot;&gt;info&lt;/code&gt;, magically you can now not only see the requested URL for your controllers, but the parameters that were provided as well! Think about that last sentence again. All of your parameters will be logged … in plain text to your logging provider. Suddenly this helpful configuration change has added a potential security attack vector to your application. Your logs will now contain any secrets being passed to your controllers. Thankfully rails has a not so straightforward configuration option we’ll walk through together below: &lt;code class=&quot;language-text&quot;&gt;config.filter_parameters&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;Setting up the config&lt;/h2&gt;
+&lt;p&gt;The bare minimum configuration for filtering certain parameters from your logs is to set up an array of keys that should not be included in your logs. It will replace the value of the key with &lt;code class=&quot;language-text&quot;&gt;[FILTERED]&lt;/code&gt;. Let’s look at what Rails provides us in terms of documentation:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;config.filter_parameters&lt;/code&gt; used for filtering out the parameters that you don’t want shown in the logs, such as passwords or credit card numbers. It also filters out sensitive values of database columns when call #inspect on an Active Record object. By default, Rails filters out passwords by adding Rails.application.config.filter&lt;em&gt;parameters += [:password] in config/initializers/filter&lt;/em&gt;parameter_logging.rb. Parameters filter works by partial matching regular expression.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This seems easy enough! By appending the keys you wish to be filtered from your parameters in a new &lt;code class=&quot;language-text&quot;&gt;initializers&lt;/code&gt; file, we can rest assured our logs don’t contain any exposed secrets … granted the parameters can be parsed. &lt;/p&gt;
+&lt;h2&gt;Filter non-parsable params&lt;/h2&gt;
+&lt;p&gt;Sometimes Rails has a hard time parsing a set of parameters to the correct format. Have you even setup a new webhook handler route, to discover the payload is of content &lt;code class=&quot;language-text&quot;&gt;multipart/form-data&lt;/code&gt;, but a form field is a stringified JSON? Sometimes external payloads aren;t configured properly, but still need to be parsed all the same. Thankfully &lt;code class=&quot;language-text&quot;&gt;config.filter_parameters&lt;/code&gt; supports &lt;code class=&quot;language-text&quot;&gt;lambda&lt;/code&gt; functions as a value in the Array! Setting up a lambda to do some extra parsing for us, we can filter out additional parameters as if they were parsed correctly the first time. We will set this up with two files, one to hold the lambda, and the existing &lt;code class=&quot;language-text&quot;&gt;initializers&lt;/code&gt; file to apply the configuration.&lt;/p&gt;
+&lt;h3&gt;app/helpers/filter_helper.rb&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# frozen_string_literal: true
+
+module FilterHelper
+  # Configure sensitive parameters which will be filtered from the log file.
+  ALWAYS_FILTERED_PARAMS = [
+    :encrypted_token,
+    :password,
+    :code,
+    :response_url,
+    :token,
+    :trigger_id,
+    :sharedSecret,
+    :installation_id,
+    :state_hash,
+    :SAMLResponse
+  ]
+
+  # Define the parameter keys which need to be parsed from a JSON string
+  JSON_FILTER_PARAMS = [&amp;#39;payload&amp;#39;]
+
+  # Filter by a particular param key whose value is a JSON encoded string
+  # based on our standard set of filtering parameters.
+  FILTER_STRING_TO_JSON = lambda do |key, value|
+    if JSON_FILTER_PARAMS.include?(key.to_s) &amp;amp;&amp;amp; value.is_a?(String)
+      json = JSON.parse(value)
+      filtered = param_filter.filter(json)
+      value.replace(filtered.to_json)
+    end
+  rescue JSON::ParserError
+    Rails.logger.info(&amp;quot;Parameter #{key} did not contain a JSON parsable value&amp;quot;)
+  end
+
+  def self.param_filter
+    ActionDispatch::Http::ParameterFilter.new(ALWAYS_FILTERED_PARAMS)
+  end
+end&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In the above file we setup a few constants, &lt;code class=&quot;language-text&quot;&gt;ALWAYS_FILTERED_PARAMS&lt;/code&gt; to keep track of the parameters we wish to filter out (including sensitive parameters in our JSON string), &lt;code class=&quot;language-text&quot;&gt;JSON_FILTER_PARAMS&lt;/code&gt; to keep track of parameter keys which contain stringified JSON to parse, and &lt;code class=&quot;language-text&quot;&gt;FILTER_STRING_TO_JSON&lt;/code&gt; as our lambda to filter our values. Lastly we have &lt;code class=&quot;language-text&quot;&gt;self.param_filter&lt;/code&gt; which allows us to call &lt;code class=&quot;language-text&quot;&gt;filter&lt;/code&gt; on our parsed values, doing the necessary substitutions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bonus&lt;/strong&gt;: Since we moved our lambda into a helper module, it can be unit tested in isolation to our configuration changes!&lt;/p&gt;
+&lt;h3&gt;config/initializers/filter&lt;em&gt;parameter&lt;/em&gt;logging.rb&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# frozen_string_literal: true
+
+Rails.application.config.filter_parameters += FilterHelper::ALWAYS_FILTERED_PARAMS
+Rails.application.config.filter_parameters &amp;lt;&amp;lt; FilterHelper::FILTER_STRING_TO_JSON&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Once we have our helper setup we can adjust how we use &lt;code class=&quot;language-text&quot;&gt;config.filter_parameters&lt;/code&gt;. We start by applying the array of symbols and strings to be filtered. Next we append to the array our lambda, which will do the additional filtering for us After a restart of your server, you should begin to see those pesky parameters being filtered from your logs!&lt;/p&gt;</content:encoded></item></channel></rss>
