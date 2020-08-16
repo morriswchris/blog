@@ -3,6 +3,10 @@
     font-size: 1.2em;
 }
 
+em {
+  font-size: 1em;
+}
+
 /* styling */
  html {
     width: 100%;
@@ -37,6 +41,7 @@ hr {
 
 h1, h2, h3 {
     font-size: 70%;
+    font-family: Montserrat, sans-serif;
     padding-bottom: 10px;
     color: #66d9ef;
 }
@@ -124,4 +129,16 @@ ul#projects li{
 #footer, footer {
     bottom: 5px;
     font-size: 70%;
+}
+
+pre.language-text {
+  background-color: #2d3346;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+code.language-text {
+  background-color: #2d3346;
+  padding:5px;
+  border-radius: 5px;
 }

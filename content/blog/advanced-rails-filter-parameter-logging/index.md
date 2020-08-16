@@ -18,7 +18,7 @@ This seems easy enough! By appending the keys you wish to be filtered from your 
 
 Sometimes Rails has a hard time parsing a set of parameters to the correct format. Have you even setup a new webhook handler route, to discover the payload is of content `multipart/form-data`, but a form field is a stringified JSON? Sometimes external payloads aren;t configured properly, but still need to be parsed all the same. Thankfully `config.filter_parameters` supports `lambda` functions as a value in the Array! Setting up a lambda to do some extra parsing for us, we can filter out additional parameters as if they were parsed correctly the first time. We will set this up with two files, one to hold the lambda, and the existing `initializers` file to apply the configuration.
 
-### app/helpers/filter_helper.rb
+### app/helpers/filter\_helper.rb
 
 ```
 # frozen_string_literal: true
@@ -64,7 +64,7 @@ In the above file we setup a few constants, `ALWAYS_FILTERED_PARAMS` to keep tra
 
 **Bonus**: Since we moved our lambda into a helper module, it can be unit tested in isolation to our configuration changes!
 
-### config/initializers/filter_parameter_logging.rb
+### config/initializers/filter\_parameter\_logging.rb
 
 ```
 # frozen_string_literal: true
