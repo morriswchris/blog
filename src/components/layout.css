@@ -31,6 +31,10 @@ span.block-cursor {
     background-color: #cbcfd5;
 }
 
+hr {
+    background-color: #66d9ef;
+}
+
 h1, h2, h3 {
     font-size: 70%;
     padding-bottom: 10px;
