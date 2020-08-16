@@ -1,7 +1,7 @@
 module.exports = {
   pathPrefix: "blog",
   siteMetadata: {
-    title: `awful, slow and expensive`,
+    title: `Awful, Slow and Expensive`,
     author: `Chris Morris`,
     description: `Musing of modern software development`,
     siteUrl: `https://chris.themorrises.xyz/blog/`,
@@ -59,13 +59,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Aweful, Slow, and Expensive`,
+        short_name: `Musings of modern software development.`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/icon.png`,
       },
     },
     `gatsby-plugin-offline`,
