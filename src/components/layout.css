@@ -1,0 +1,123 @@
+* {
+    font-family: monospace;
+    font-size: 1.2em;
+}
+
+/* styling */
+ html {
+    width: 100%;
+    height: 100%;
+    background-color: #393e4d;
+}
+
+html, span, div {
+    color: #cbcfd5;
+}
+
+.purple, a {
+    color: #c69cbc;
+}
+
+.yellow {
+    color: #f1d697;
+}
+
+.red {
+    color: #d66f7b;
+}
+
+span.block-cursor {
+    color: #cbcfd5;
+    background-color: #cbcfd5;
+}
+
+h1, h2, h3 {
+    font-size: 70%;
+    padding-bottom: 10px;
+    color: #66d9ef;
+}
+
+h1:before {
+  content: "# ";
+}
+
+h2:before {
+  content: "## ";
+}
+
+h3:before {
+  content: "### ";
+}
+
+small {
+  font-size: 35%
+}
+
+p {
+    font-size: 55%;
+}
+
+span {
+    color: #cbcfd5;
+}
+
+span#command {
+    display: inline-block;
+}
+
+blockquote {
+  font-size: 90%;
+}
+
+.block, blockquote {
+  color: #999999;
+  border-left: 0;
+}
+
+.block:before, blockquote p:before {
+  content: "> ";
+}
+
+span.block {
+  font-size: 95%;
+}
+
+span.sm {
+    font-size: 50%;    
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 50%;
+}
+
+ul#projects li{
+  padding-bottom:15px;
+}
+
+#terminal {
+    font-size: 70%;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+#output {
+    text-align: left;
+    width: 100%;
+    height: 94vh;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    word-wrap:break-word;
+}
+
+#output-content {
+    margin: 10px;
+    max-width:1000px;
+}
+
+#footer, footer {
+    bottom: 5px;
+    font-size: 70%;
+}
