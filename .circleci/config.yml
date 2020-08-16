@@ -12,6 +12,9 @@ jobs:
             npm install
             git config user.email "morriswchris@gmail.com"
             git config user.name "Chris Morris"
+      - add_ssh_keys:
+          fingerprints:
+            - "73:77:77:37:4d:60:89:cf:4b:7d:cf:e2:91:2a:30:09"
       - run:
           name: Deploy docs to gh-pages branch
           command: npm run deploy
