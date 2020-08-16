@@ -135,6 +135,7 @@ pre.language-text {
   background-color: #2d3346;
   padding: 20px;
   border-radius: 20px;
+  overflow: scroll;
 }
 
 code.language-text {
