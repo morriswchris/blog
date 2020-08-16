@@ -8,7 +8,7 @@ Rails in a powerful framework, providing great _magical_ features with little to
 
 ## Setting up the config
 
-The bare minimum configuration for filtering certain parameters from your logs is to setup an array of keys that should not be included in your logs. It will replace the value of the key with `[FILTERED]`. Lets look at what Rails provides us in terms of documentation:
+The bare minimum configuration for filtering certain parameters from your logs is to set up an array of keys that should not be included in your logs. It will replace the value of the key with `[FILTERED]`. Let's look at what Rails provides us in terms of documentation:
 
 > `config.filter_parameters` used for filtering out the parameters that you don't want shown in the logs, such as passwords or credit card numbers. It also filters out sensitive values of database columns when call #inspect on an Active Record object. By default, Rails filters out passwords by adding Rails.application.config.filter_parameters += [:password] in config/initializers/filter_parameter_logging.rb. Parameters filter works by partial matching regular expression.
 
@@ -16,7 +16,7 @@ This seems easy enough! By appending the keys you wish to be filtered from your 
 
 ## Filter non-parsable params
 
-Sometimes Rails has a hard time parsing a set of paramters to the correct format. Have you even setup a new webhook handler route, to discover the payload is of content `multipart/form-data`, but a form field is a stringified JSON? Sometimes external payloads aren;t configured properly, but still need to be parsed all the same. Thankfully `config.filter_parameters` supports `lambda` functions as a value in the Array! Setting up a lambda to do some extra parsing for us, we can filter out additional parameters as if they were parsed correctly the first time. We will set this up with two file, one to hold the lambda, and the existing `initializers` file to apply the configuration.
+Sometimes Rails has a hard time parsing a set of parameters to the correct format. Have you even setup a new webhook handler route, to discover the payload is of content `multipart/form-data`, but a form field is a stringified JSON? Sometimes external payloads aren;t configured properly, but still need to be parsed all the same. Thankfully `config.filter_parameters` supports `lambda` functions as a value in the Array! Setting up a lambda to do some extra parsing for us, we can filter out additional parameters as if they were parsed correctly the first time. We will set this up with two files, one to hold the lambda, and the existing `initializers` file to apply the configuration.
 
 ### app/helpers/filter_helper.rb
 
@@ -73,6 +73,4 @@ Rails.application.config.filter_parameters += FilterHelper::ALWAYS_FILTERED_PARA
 Rails.application.config.filter_parameters << FilterHelper::FILTER_STRING_TO_JSON
 ```
 
-Once we have our helper setup we can adjust how we use `config.filter_parameters`. We start by applying the array of symbols and strings to be filtered. Next we append to the array our lambda, which will do the additional filtering for us After a restart of your server, you should begin to see those pesky parameters being filtererd from your logs!
-
-
+Once we have our helper setup we can adjust how we use `config.filter_parameters`. We start by applying the array of symbols and strings to be filtered. Next we append to the array our lambda, which will do the additional filtering for us After a restart of your server, you should begin to see those pesky parameters being filtered from your logs!
