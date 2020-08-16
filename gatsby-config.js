@@ -63,7 +63,7 @@ module.exports = {
         short_name: `Musings of modern software development.`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
+        theme_color: `#393e4d`,
         display: `minimal-ui`,
         icon: `content/assets/icon.png`,
       },
