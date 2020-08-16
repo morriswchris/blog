@@ -10,6 +10,8 @@ jobs:
           name: Install and configure dependencies
           command: |
             npm install
+            git config user.email "morriswchris@gmail.com"
+            git config user.name "Chris Morris"
       - run:
           name: Deploy docs to gh-pages branch
           command: npm run deploy
