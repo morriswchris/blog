@@ -54,7 +54,7 @@ const Bio = () => {
         }}
       />
         <p>
-          <a href={`https://github.com/${social.github}`}>
+          <a href={`https://chris.themorrises.xyz`}>
             <strong>{author}</strong>
           </a> is a senior software engineer based in Toronto where he attempts to solve life's problems one line at a time.
         {` `}
