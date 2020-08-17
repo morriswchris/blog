@@ -10,4 +10,4 @@ Don’t you love signing in to your favorite application only to find out it’s
 
 > Kafka Summit SF - Oct 16-17th 2018
 
-(Watch Talk)[https://www.confluent.io/kafka-summit-sf18/from-propeller-to-jet]
+[Watch Talk](https://www.confluent.io/kafka-summit-sf18/from-propeller-to-jet)
