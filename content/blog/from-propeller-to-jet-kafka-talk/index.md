@@ -1,5 +1,5 @@
 ---
-title: From Propeller to Jet: Changing your engines mid flight
+title: From Propeller to Jet\: Changing your engines mid flight
 date: "2018-10-17T12:40:32.169Z"
 description: Don’t you love signing in to your favorite application only to find out it’s undergoing scheduled maintenance? In this 2018 Kafka Summit talk, I will guide you through the experience of swapping out PagerDuty’s original prop engine consisting of a Cassandra queue-based system to that of a 747 which utilizes Kafka.
 ---
