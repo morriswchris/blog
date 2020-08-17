@@ -56,7 +56,7 @@ const Bio = () => {
         <p>
           <a href={`https://github.com/${social.github}`}>
             <strong>{author}</strong>
-          </a> is a senior software engineer based in Toronto where he attempts to solve lifes problems one line at a time.
+          </a> is a senior software engineer based in Toronto where he attempts to solve life's problems one line at a time.
         {` `}
       </p>
     </div>
